@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="JSF_Crud:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>JSF_Crud</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="JSF_Crud.war">
+      <element id="artifact" artifact-name="JSF_Crud:war exploded" />
+    </root>
+  </artifact>
+</component>

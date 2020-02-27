@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crud Index</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/template/template.xhtml">
+            <ui:define name="up">
+                <h1 style="text-align: center;">CRUD</h1>
+            </ui:define>
+            <ui:define name="main">
+                <hr />
+                <h:form style="width: 250px; margin: 0 auto;">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="User Name:" />
+                        <h:inputText value="#{users.user.userName}" required="true" requiredMessage="Do Not Leave Username Empty ..." />
+                        <h:outputLabel value="Password :" />
+                        <h:inputSecret value="#{users.user.password}" required="true" requiredMessage="Do not leave the password field blank ..." />
+                        <h:outputLabel value="Email :" />
+                        <h:inputText value="#{users.user.email}" required="true" requiredMessage="Do not leave the email field empty ..."/>
+                    </h:panelGrid>
+                    <h:commandButton value="Add User" action="#{users.addUser()}" />
+                </h:form>
+                <hr></hr>
+                <h:dataTable value="#{users.userList}" var="liste" border="1" style="width: 100%;" >
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="İd" />
+                        </f:facet>
+                        <h:outputText value="#{liste.id}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="User Name" />
+                        </f:facet>
+                        <h:outputText value="#{liste.userName}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Password" />
+                        </f:facet>
+                        <h:outputText value="#{liste.password}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email" />
+                        </f:facet>
+                        <h:outputText value="#{liste.email}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Delete" />
+                        </f:facet>
+                        <h:form>
+                        <h:commandButton value="Delete" action="#{users.deleteUser(liste)}"/>
+                        </h:form>
+                    </h:column>
+                    
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Edit" />
+                        </f:facet>
+                        <h:form>
+                            <h:commandButton type="submit" id="update" value="Edit" action="#{users.editUserss(liste)}"/>
+                        </h:form>
+                    </h:column>
+                    
+                </h:dataTable>
+                <hr/>
+                <h:messages/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

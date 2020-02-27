@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crud Index</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/template/template.xhtml">
+            <ui:define name="up">
+                <h1 style="text-align: center;">CRUD</h1>
+            </ui:define>
+            <ui:define name="main">
+                
+                <h:messages/>
+                <hr />
+                <h:form>
+                    <h:inputHidden value="#{users.user.id}"/>
+                    <br/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="User Name:" />
+                        <h:inputText value="#{users.user.userName}" required="true" requiredMessage="User name required" />
+                        <h:outputLabel value="Password :" />
+                        <h:inputSecret value="#{users.user.password}" required="true" requiredMessage="Password required" />
+                        <h:outputLabel value="Email :" />
+                        <h:inputText value="#{users.user.email}" required="true" requiredMessage="Email required"/>
+                    </h:panelGrid>
+                    <h:commandButton value="Register" action="#{users.editUser()}" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
