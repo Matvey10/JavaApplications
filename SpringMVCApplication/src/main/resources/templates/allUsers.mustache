@@ -1,0 +1,20 @@
+<html>
+<body>
+<div>
+    <h2>Список пользователей</h2>
+</div>
+{{#users}}
+    <div>
+        <b>Имя: {{userName}}</b>
+        <b>Пол: {{userGender}}</b>
+        <b>Возраст: {{userGender}}</b>
+    </div>
+{{/users}}
+<form action="greeting" method="post">
+    <button type="submit" value="exit" >EXIT</button>
+</form>
+<form action="main" method="get">
+    <button type="submit" value="back" >BACK</button>
+</form>
+</body>
+</html>

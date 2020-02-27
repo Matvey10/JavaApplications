@@ -1,0 +1,31 @@
+<html>
+<body>
+<h1> Hello, world!</h1>
+<div>
+    <form method="post" enctype="multipart/form-data" action="/main">
+        <input type="text" name="name" placeholder="Введите имя"/>
+        <input type="password" name="password" placeholder="Введите пароль"/>
+        <input type="text" name="gender" placeholder="Введите пол"/>
+        <input type="number" name="age" placeholder="Введите возраст"/>
+        <div>
+            <input type="file" name="file"/>
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+
+{{#users}}
+    <div>
+        <b>Имя: {{userName}}</b>
+        <b>Пол: {{userGender}}</b>
+        <b>Возраст: {{age}}</b>
+    </div>
+    <div>
+        <img src="\\img\\{{filename}}">
+    </div>
+{{/users}}
+
+<a href="greeting">greeting page </a>
+<a href="/users">all users</a>
+</body>
+</html>
