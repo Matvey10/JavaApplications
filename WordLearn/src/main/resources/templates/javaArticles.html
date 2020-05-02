@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Articles</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+        <!--Authenticated user roles:
+        <div sec:authentication="principal.authorities"></div>-->
+            <!--<h2 sec:authentication="name"  </h2> -->
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <h1>Articles</h1>
+    </div>
+    <div class="panel-body">
+        <h2>
+            You can find there useful and interesting topics about Java technologies:
+            Spring, Hibernate, JMS etc.
+        </h2>
+    </div>
+
+    <div class="list-group">
+        <div sec:authorize="isAuthenticated()">
+            <a href="/articles/allArticles" class="list-group-item active">
+                <h4 class="list-group-item-heading"> All articles </h4>
+                <p class="list-group-item-text"> You can find there all that you need about Java </p>
+            </a>
+        </div>
+        <div sec:authorize="hasRole('USER')">
+            <a href="/articles" class="list-group-item active">
+                <h4 class="list-group-item-heading"> Favorite articles </h4>
+                <p class="list-group-item-text"> You can read there articles that you rated before </p>
+            </a>
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a href="/articles/new" class="list-group-item active">
+                <h4 class="list-group-item-heading"> Add new article </h4>
+                <p class="list-group-item-text"> You can add an interesting topic related to Java technologies </p>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
