@@ -1,5 +1,6 @@
 package com.company.services;
 
+import com.company.Entities.SpecialSqlResults.UserAndWordCount;
 import com.company.Entities.User;
 import com.company.Entities.Word;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,5 +17,6 @@ public interface UserService extends UserDetailsService {
     List<Word> findAllUserWords(Integer id);
     User findUserByLogin(String login);
     Iterable<User> getAllUsers();
+    List<UserAndWordCount> getUserRating();
 
 }

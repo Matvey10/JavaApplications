@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>New Article</title>
+    <title>Add new term</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -15,27 +15,25 @@
 </head>
 <body>
 <div th:insert="~{menu :: menu_}"></div>
+<h1>You can add some new terms and then we'll help you to memorize them</h1>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Add new article</h3>
+        <h3 class="panel-title">Add new term</h3>
     </div>
     <div class="panel-body">
-        <form th:action="@{/articles/new}" method="post">
+        <form th:action="@{/addTerm}"  method="post">
             <div class="form-group">
-                <label for="Title">Type article title</label>
-                <input type="text" class="form-control" id="Title" name="title" placeholder="example" >
+                <label for="term">Type new term</label>
+                <input type="text" class="form-control" id="term" placeholder="java" name="term">
             </div>
             <div class="form-group">
-                <label for="ref">Type ref</label>
-                <input type="text" class="form-control" id="ref" placeholder="https://spring.io/guides/gs/rest-service/" name="ref">
-            </div>
-            <div class="form-group">
-                <label for="ref">Type a description of the article</label>
-                <p><textarea cols="60" rows="5" name="description"></textarea></p>
+                <label for="definition">Type definition</label>
+                <input type="text" class="form-control" id="definition" placeholder="лучший язык программирования!" name="definition">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
 </div>
+<a href="/allTerms"> Show my terms</a>
 </body>
 </html>

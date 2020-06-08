@@ -58,10 +58,25 @@ public class Word {
     @Override
     public String toString() {
         return "Word{" +
-                "id=" + id +
-                ", word='" + word + '\'' +
+                "word='" + word + '\'' +
                 ", translation='" + translation + '\'' +
-                ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Word)) return false;
+        Word word1 = (Word) o;
+        return Objects.equals(getId(), word1.getId()) &&
+                Objects.equals(getWord(), word1.getWord()) &&
+                Objects.equals(getTranslation(), word1.getTranslation()) &&
+                Objects.equals(getUser(), word1.getUser()) &&
+                Objects.equals(wordInTests, word1.wordInTests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getWord(), getTranslation(), getUser(), wordInTests);
     }
 }

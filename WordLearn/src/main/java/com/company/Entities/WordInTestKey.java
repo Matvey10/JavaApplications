@@ -2,6 +2,7 @@ package com.company.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
 import java.io.Serializable;
 import java.util.Objects;
 

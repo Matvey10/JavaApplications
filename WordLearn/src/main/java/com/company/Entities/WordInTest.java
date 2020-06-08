@@ -50,4 +50,14 @@ public class WordInTest {
     }
 
     double know;
+
+    @Override
+    public String toString() {
+        return "WordInTest{" +
+                "id=" + id +
+                ", word=" + word.getWord() +
+                ", wordTest=" + wordTest.getTestName() +
+                ", know=" + know +
+                '}';
+    }
 }

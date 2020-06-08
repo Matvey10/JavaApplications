@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!— Optional theme —>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add new word</h3>
+    </div>
+    <div class="panel-body">
+        <form name="test" th:action="@{/knowledgeTest}" th:object="${wordsForTest}" method="post">
+            <input type="hidden" name="result" value=""/>
+            <div class="form-group">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th> Word </th>
+                        <th> Translation </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="word : ${wordsForTest.keySet()}">
+                        <td>
+                            <span th:text="${word.getWord()}"> Word </span>
+                        </td>
+                        <td>
+                            <form th:name="${word.getWord()}">
+                                <div class="answer" th:each="ans : ${wordsForTest.get(word)}">
+                                    <p th:text="${ans.getAnswer()}"></p>
+                                    <input type="radio" class="answerClass" name="ans" th:id="${ans.getAnswer()}" th:value="${ans.isCorrect()}"/>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit" name="finish" class="btn btn-default">Finish</button>
+            <button type="button" name="finTest" class="btn btn-default">See result</button>
+        </form>
+    </div>
+</div>
+<script>
+    function finishTest(e){
+        let ball = 0;
+        let maxBall = document.getElementsByClassName("answerClass").length/4;
+        let answerForms = document.getElementsByTagName("form");
+        for(let i = 0; i < 2; i++){
+            if (answerForms[i].name==="test"){
+                continue;
+            }
+            let allAnswers = document.getElementsByClassName("answerClass");
+            for (let j = 0; j < allAnswers.length; j++){
+                let ans = allAnswers[j];
+                let ans_value = ans.value;
+                let is_checked = ans.checked;
+                if(ans_value=="true" && is_checked==true){
+                    ball++;
+                }
+            }
+        }
+        let result = ball + "/" + maxBall;
+        let resInput = document.getElementsByName("result")[0];
+        resInput.value = (ball/maxBall);
+            alert("Your result:"  + result);
+    }
+    let finButton = document.test.finTest;
+    finButton.addEventListener("click", finishTest);
+</script>
+</body>
+</html>

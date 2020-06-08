@@ -15,4 +15,28 @@ public class Test {
     private String testName;
     @OneToMany(mappedBy = "wordTest")
     private Set<WordInTest> wordsInTest = new HashSet<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public Set<WordInTest> getWordsInTest() {
+        return wordsInTest;
+    }
+
+    public void setWordsInTest(Set<WordInTest> wordsInTest) {
+        this.wordsInTest = wordsInTest;
+    }
 }

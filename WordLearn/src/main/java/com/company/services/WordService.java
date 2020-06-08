@@ -1,5 +1,6 @@
 package com.company.services;
 
+import com.company.Entities.SpecialSqlResults.WordsAndCount;
 import com.company.Entities.User;
 import com.company.Entities.Word;
 
@@ -9,4 +10,5 @@ public interface WordService {
     boolean addWord(Word word);
     boolean removeWordById(Integer id);
     List<Word> getAllWords();
+    List<WordsAndCount> popularWords();
 }

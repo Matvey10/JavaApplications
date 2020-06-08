@@ -3,6 +3,7 @@ package com.company.controllers;
 import com.company.Entities.Article;
 import com.company.services.ArticleService;
 import com.company.services.UserService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @Controller
 public class ArticlesController {
+    @Autowired
+    public Logger logger;
     @Autowired
     UserService userService;
     @Autowired
@@ -36,9 +39,11 @@ public class ArticlesController {
         article.setArticleText(description);
         if (articleService.addArticle(article)){
             System.out.println("add article");
+            logger.info("adding new article:" + title);
         }
         else {
             System.out.println("can't add article");
+            logger.info("can't add new article");
         }
         return "newArticle";
     }

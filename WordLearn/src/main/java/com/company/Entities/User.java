@@ -4,10 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "UserTable")
@@ -99,6 +96,18 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public User(){
+    }
+
+    public User(String firstName, String secondName, int age, String login, String password) {
+        this.setFirstName(firstName);
+        this.setSecondName(secondName);
+        this.setAge(age);
+        this.setLogin(login);
+        this.setPassword(password);
+        this.setRoles(Collections.singleton(new Role("USER")));
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -138,7 +147,6 @@ public class User implements UserDetails {
                 ", age=" + age +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", words=" + words +
                 '}';
     }
 

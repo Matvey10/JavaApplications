@@ -1,6 +1,7 @@
 package com.company.services;
 
 import com.company.Entities.Role;
+import com.company.Entities.SpecialSqlResults.UserAndWordCount;
 import com.company.Entities.User;
 import com.company.Entities.Word;
 import com.company.Repositories.UserRepository;
@@ -62,5 +63,10 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println("load user by username");
         return user;
+    }
+
+    @Override
+    public List<UserAndWordCount> getUserRating() {
+        return userRepository.getUserRating();
     }
 }

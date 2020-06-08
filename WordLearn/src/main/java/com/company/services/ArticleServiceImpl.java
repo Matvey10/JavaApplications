@@ -30,4 +30,7 @@ public class ArticleServiceImpl implements ArticleService{
         List<Article> articles = new ArrayList<>();
         return articles;
     };
+    public List<Article> findArticlesByRegex(String regex){
+        return articleRepository.findByArticleTextContaining(regex);
+    }
 }

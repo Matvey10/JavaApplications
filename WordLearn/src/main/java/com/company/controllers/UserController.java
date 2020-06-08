@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-public class MainController {
+public class UserController {
     @Autowired
     public Logger logger;
     @Autowired
@@ -31,20 +31,15 @@ public class MainController {
     WordService wordService;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-    //User user;
     @GetMapping("/")
     public String redirectToStartPage(){
-        return "redirect:/hello";
-    }
-    @GetMapping("/hello")
-    public String showStartPage(){
-        return "index.html";
+        return "javaArticles";
     }
 
     @GetMapping("/addWord")
     public String showNewWordForm(Model model){
         model.addAttribute("newWord", new Word());
-        return "wordForm.html";
+        return "wordForm";
     }
 
     @PostMapping("/addWord")
@@ -54,7 +49,7 @@ public class MainController {
         newWord.setTranslation(transl);
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newWord.setUser(user);
-        user.addWord(newWord); // Добавить авторизацию - spring security
+        user.addWord(newWord);
         logger.info("User have added new word:" + word);
         wordService.addWord(newWord);
         return "redirect:/addWord";
@@ -63,7 +58,7 @@ public class MainController {
     @GetMapping("/signUp")
     public String showRegistrationForm(Model model){
         model.addAttribute("newUser", new User());
-        return "registration.html";
+        return "registration";
     }
 
     @PostMapping("/signUp")
@@ -92,7 +87,7 @@ public class MainController {
             System.out.println(w.getWord() + " : " + w.getTranslation());
         }
         model.addAttribute("allWords", allUserWords);
-        return "allUserWords.html";
+        return "allUserWords";
     }
 
 }

@@ -12,4 +12,5 @@ public interface ArticleService {
     List<Article> findAllArticles();
     Article findArticleByTitle(String title);
     List<Article> findByKeywords(List<String> keywords);
+    List<Article> findArticlesByRegex(String regex);
 }
