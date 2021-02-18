@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 
 @WebServlet("/signIn")
@@ -19,14 +20,26 @@ public class SIgnInServlet extends HttpServlet {
         System.out.println(name);
         String password = request.getParameter("password");
         User user = Users.getUserByName(name);
-        Cookie nameCookie = new Cookie("nameCookie", name);
-        response.addCookie(nameCookie);
-        Cookie passwordCookie = new Cookie("passwordCookie", user.getPassword());
-        response.addCookie(passwordCookie);
-        Cookie genderCookie = new Cookie("genderCookie", user.getGender());
-        response.addCookie(genderCookie);
-        Cookie ageCookie = new Cookie("ageCookie", user.getAge());
-        response.addCookie(ageCookie);
+        if (user == null)
+        {
+            response.sendRedirect("userInfo.html");
+        }
+        else
+        {
+            Cookie nameCookie = new Cookie("nameCookie", name);
+            response.addCookie(nameCookie);
+            Cookie passwordCookie = new Cookie("passwordCookie", user.getPassword());
+            response.addCookie(passwordCookie);
+            Cookie genderCookie = new Cookie("genderCookie", user.getGender());
+            response.addCookie(genderCookie);
+            Cookie ageCookie = new Cookie("ageCookie", user.getAge());
+            response.addCookie(ageCookie);
+            request.setAttribute("user", user);
+            request.setAttribute("users", users);
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/userData.jsp");
+            requestDispatcher.forward(request, response);
+        }
+
        /* try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -49,10 +62,6 @@ public class SIgnInServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }*/
-        request.setAttribute("user", user);
-        request.setAttribute("users", users);
-        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/userData.jsp");
-        requestDispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

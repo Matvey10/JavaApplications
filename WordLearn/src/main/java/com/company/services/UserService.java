@@ -1,5 +1,7 @@
 package com.company.services;
 
+import com.company.Entities.Account;
+import com.company.Entities.SpecialSqlResults.UserAndScores;
 import com.company.Entities.SpecialSqlResults.UserAndWordCount;
 import com.company.Entities.User;
 import com.company.Entities.Word;
@@ -18,5 +20,8 @@ public interface UserService extends UserDetailsService {
     User findUserByLogin(String login);
     Iterable<User> getAllUsers();
     List<UserAndWordCount> getUserRating();
-
+    Double getAvgUserResult(int id);
+    Account getAccount(User user);
+    boolean addAccount(Account account);
+    List<UserAndScores> getUsersScores();
 }

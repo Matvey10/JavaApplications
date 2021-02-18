@@ -30,7 +30,6 @@ public class UsersBean {
     public void getAllUsersList(){
         user = new Users();
         userList = userEJB.allUsers();
-
     }
     public String editUserss(Users userrrr){
         this.user = userrrr;

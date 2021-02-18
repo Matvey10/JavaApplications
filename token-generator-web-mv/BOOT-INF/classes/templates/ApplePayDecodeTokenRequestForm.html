@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ApplePay</title>
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container" style="min-height: 500px">
+
+    <div class="starter-template">
+        <h1>Token Generator App</h1>
+        <form action="/rest/decodeApplePayPaymentToken.do" class="form-horizontal" id="decodeTokenRequestForm" name="decodeTokenRequestForm">
+            <div class="form-group purple-border">
+                <label for="feedback">Decoded data</label>
+                <textarea readonly class="form-control" id="feedback" rows="8"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="token">Payment token*</label>
+                <textarea class="form-control" id="token" name="token" rows="8"></textarea>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label">Merchant login*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="merchantLogin" placeholder="ApplePayTest" name="merchant">
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label">Payment gate*</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="paymentGate" name="paymentGate">
+                        <option value="0">select payment gate</option>
+                        <option th:each="paymentGate : ${availablePaymentGates}" th:value="${paymentGate}" th:text="${paymentGate}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" id="btn-submit"
+                            class="btn btn-primary btn-lg">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    #error {color: red;}
+</style>
+<div id="error"></div>
+<p>* - required</p>
+</body>
+<script type="text/javascript"
+        src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $("#decodeTokenRequestForm").submit(function(e) {
+
+        e.preventDefault();
+
+        let form = $(this);
+        let url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function(data)
+            {
+                let jsonResponse = JSON.stringify(data, null, 4);
+                $('#feedback').html(jsonResponse);
+                $('#error').html("");
+            },
+            error: function (e) {
+                let errorResponse = JSON.parse(e.responseText);
+                let errorMessage = "ERROR: " + errorResponse.error.message;
+                console.log("ERROR : ", e);
+                $('#error').html(errorMessage);
+                $("#btn-submit").prop("disabled", false);
+            }
+        });
+    });
+</script>
+</html>
+

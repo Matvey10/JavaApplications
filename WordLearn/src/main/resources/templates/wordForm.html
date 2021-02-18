@@ -13,22 +13,21 @@
 
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
-<body>
+<body background="back.jpg">
 <div th:insert="~{menu :: menu_}"></div>
 <div class="row">
     <div class="col-md-2">
         <ul class="nav nav-tabs nav-stacked">
-            <li><a href="/addWord">Add word</a></li>
+            <li><a href="/addWord"> Add word </a></li>
             <li><a href="/allUserWords">Show my words </a></li>
-            <li><a href="/">Popular words</a></li>
+            <li><a href="/statistic">Statistics</a></li>
             <li><a href="/knowledgeTest">Knowledge test</a></li>
         </ul>
     </div>
-    <div class="panel panel-default col-md-8 col-md-offset-0.5">
-        <h1>You can add some new words and then we'll help you to memorize them</h1>
-        <!--<div class="panel-heading">
-            <h1 class="panel-title">You can add some new words and then we'll help you to memorize them</h1>
-        </div>-->
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add some new words</h3>
+        </div>
         <div class="panel-body">
             <form th:action="@{/addWord}"  method="post">
                 <div class="form-group">
@@ -39,7 +38,6 @@
                     <label for="Translation">Type translation</label>
                     <input type="text" class="form-control" id="Translation" placeholder="пример" name="transl">
                 </div>
-
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>

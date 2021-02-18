@@ -13,19 +13,21 @@
 
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
-<body>
+<body background="back.jpg">
 <div th:insert="~{menu :: menu_}"></div>
 <div class="row">
     <div class="col-md-2">
         <ul class="nav nav-tabs nav-stacked">
             <li><a href="/addWord">Add word</a></li>
             <li><a href="/allUserWords">Show my words </a></li>
-            <li><a href="/">Popular words</a></li>
+            <li><a href="/statistic">Statistics</a></li>
             <li><a href="/knowledgeTest">Knowledge test</a></li>
         </ul>
     </div>
-    <div class="panel panel-default col-md-8 col-md-offset-0.5">
-        <h1>Check your knowledge - pass the knowledge test</h1>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">My words</h3>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr>
