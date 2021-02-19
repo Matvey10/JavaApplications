@@ -1,0 +1,17 @@
+server:
+    port: 9000
+
+logging:
+    level:
+        root: INFO
+        org.springframework.web: INFO
+        org.springframework.security: INFO
+        org.springframework.security.oauth2: INFO
+
+oauth:
+    endpoints:
+        registration: /oauth2/register
+        authorization: /oauth2/authorize
+        token: /oauth2/token
+        issuer: http://localhost:9000
+        jwks: /oauth2/jwks
