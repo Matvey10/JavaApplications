@@ -1,12 +1,9 @@
 package com.example.authorization_server.config;
 
-import com.example.authorization_server.dto.OpenIdDiscoveryConfigurationDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
-
-import java.util.List;
 
 @Configuration
 public class DiscoveryConfiguration {

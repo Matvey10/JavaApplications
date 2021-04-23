@@ -8,9 +8,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import(DiscoveryConfiguration.class)
 public class AuthorizationServerApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AuthorizationServerApplication.class, args);
     }
-
 }

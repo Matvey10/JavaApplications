@@ -1,5 +1,5 @@
 server:
-    port: 9000
+    port: 8888
 
 logging:
     level:
@@ -13,5 +13,13 @@ oauth:
         registration: /oauth2/register
         authorization: /oauth2/authorize
         token: /oauth2/token
-        issuer: http://localhost:9000
+        issuer: http://localhost:8888
         jwks: /oauth2/jwks
+
+spring:
+    datasource:
+        username: postgres
+        password: vma3243652
+        url: jdbc:postgresql://localhost:5432/Resourse_server
+        jpa:
+            database-platform: org.hibernate.dialect.PostgreSQL10Dialect

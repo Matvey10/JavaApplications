@@ -8,36 +8,56 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.server.authorization.InMemoryOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import java.util.UUID;
 
 
 @Configuration(proxyBeanMethods = false)
-@Import(OAuth2AuthorizationServerConfiguration.class)
+@Import(OAuth2AuthorizationServerFilterChainConfig.class)
 public class AuthorizationServerConfig {
+    String authorizationCodeHandlerRedirectUri = "http://localhost:8888/code";
+
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
-        //есть новее - см в семпле
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-            .clientId("messaging-client")
+            .clientId("test_client")
             .clientSecret("secret")
             .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
-//            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-            //.redirectUri("http://localhost:8080/authorized")
+            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+            .redirectUri(authorizationCodeHandlerRedirectUri)
             .scope(OidcScopes.OPENID)
-            .scope("message.read")
-            .scope("message.write")
-            .clientSettings(clientSettings -> clientSettings.requireUserConsent(true))
+            .scope("create.consent")
+            .clientSettings(clientSettings -> clientSettings.requireUserConsent(false))
             .build();
         return new InMemoryRegisteredClientRepository(registeredClient);
+    }
+
+    @Bean
+    public UserDetailsService users() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+            .username("user1")
+            .password("password")
+            .roles("USER")
+            .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public OAuth2AuthorizationService inMemoryOAuth2AuthorizationService() {
+        return new InMemoryOAuth2AuthorizationService();
     }
 
     @Bean

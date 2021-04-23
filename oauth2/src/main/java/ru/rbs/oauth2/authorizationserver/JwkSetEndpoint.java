@@ -14,7 +14,7 @@ import java.util.Map;
 
 //That's how our Resource Server will communicate to Authorization server to retrieve JWKs and verify that the access token's signature
 // supplied in the Authorization header request from the end-user is genuine.
-@FrameworkEndpoint
+//@FrameworkEndpoint
 class JwkSetEndpoint {
     KeyPair keyPair;
 
@@ -22,8 +22,8 @@ class JwkSetEndpoint {
         this.keyPair = keyPair;
     }
 
-    @GetMapping("/.well-known/jwks.json")
-    @ResponseBody
+//    @GetMapping("/.well-known/jwks.json")
+//    @ResponseBody
     public Map<String, Object> getKey() {
         RSAPublicKey publicKey = (RSAPublicKey) this.keyPair.getPublic();
         RSAKey key = new RSAKey.Builder(publicKey).build();
