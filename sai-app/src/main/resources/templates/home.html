@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SAI</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<style>
+    .lines{margin-bottom: 50px;}
+    .center-btn{position: relative;
+        left: 50%;
+        transform: translate(-50%, 0); }
+</style>
+<div th:insert="~{menu :: menu_}"></div>
+<h1 align="center">SAI app</h1>
+<!--<div class="container">-->
+<!--    <div class="row lines align-content-center">-->
+<!--        <form th:action="@{/swagger-ui.html}" method="get" class="center-btn">-->
+<!--            <button class="btn btn-success btn-lg" id="swagger">Swagger</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+</body>
+</html>

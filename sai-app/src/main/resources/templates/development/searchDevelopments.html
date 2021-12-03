@@ -1,0 +1,84 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search developments</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{development/development_menu :: development_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-10 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">All developments</h3>
+        </div>
+        <div class="panel-body">
+            <form th:action="@{/development/search}" class="form-horizontal" id="filterForm" method="get">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group form-group-lg">
+                            <label for="nameFilter" class="col-sm-12 control-label">Enter technology name</label>
+                            <div class="col-sm-20">
+                                <input type="text" class="form-control" id="nameFilter" th:name="nameFilter" th:value="${findDevelopmentsSearchFilter.nameFilter}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-group-lg">
+                            <label for="technologies" class="col-sm-12 control-label">Enter technologies</label>
+                            <div class="col-sm-20">
+                                <input type="text" class="form-control" id="technologies" th:name="technologies" th:value="${findDevelopmentsSearchFilter.technologies}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-group-lg">
+                            <label for="saiProperties" class="col-sm-12 control-label">Enter SAI properties</label>
+                            <div class="col-sm-20">
+                                <input type="text" class="form-control" id="saiProperties" th:name="saiProperties" th:value="${findDevelopmentsSearchFilter.saiProperties}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" id="btn-submit"
+                                class="btn btn-primary btn-lg">Find</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Type</th>
+                    <th>Full info</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="development : ${developments}">
+                    <td th:text="${development.developmentName}" />
+                    <td th:text="${development.developmentYear}" />
+                    <td th:text="${development.developmentType}" />
+                    <td>
+                        <form th:action="@{/development/find}" method="GET">
+                            <div>
+                                <input type="hidden" name="id" th:value="${development.id}"/>
+                                <div>
+                                    <button type="submit">Full info</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

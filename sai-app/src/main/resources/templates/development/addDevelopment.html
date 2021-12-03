@@ -1,0 +1,137 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add development</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{development/development_menu :: development_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title" text="Add development"></h3>
+        </div>
+        <div class="panel-body">
+            <div class="starter-template">
+                <form th:action="@{/rest/development/add}" class="form-horizontal" id="developmentForm" name="developmentForm">
+                    <div class="form-group purple-border">
+                        <label for="feedback" class="col-sm-2 control-label">Result</label>
+                        <div class="col-sm-10">
+                            <textarea readonly class="form-control" id="feedback" rows="6"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="developmentName" class="col-sm-6 control-label">Development name<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="developmentName" name="developmentName" placeholder="Development name" rows="8">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="developmentTypeId" class="col-sm-6 control-label">Development type<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="developmentTypeId" name="developmentTypeId" placeholder="Development type" th:list="developmentTypes">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="developmentYear" class="col-sm-6 control-label">Development year<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="developmentYear" name="developmentYear" placeholder="2021" rows="8">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="authorsIds" class="col-sm-6 control-label">Authors<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="authorsIds" name="authorsIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="saiPropertiesIds" class="col-sm-6 control-label">SAI properties</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="saiPropertiesIds" name="saiPropertiesIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="technologiesIds" class="col-sm-6 control-label">Used Technologies</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="technologiesIds" name="technologiesIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="articleIds" class="col-sm-6 control-label">Related articles</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="articleIds" name="articleIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <style>
+                        #error {color: red;}
+                    </style>
+                    <div id="error"></div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" id="btn-submit"
+                                    class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                <datalist id="developmentTypes">
+                    <option th:each="developmentType : ${developmentTypes}" th:value="${developmentType.id}" th:text="${developmentType.typeName}"></option>
+                </datalist>
+            </div>
+        </div>
+        <p><span style="color: #FF0000;">*</span> - required</p>
+    </div>
+</div>
+<script type="text/javascript"
+        th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script>
+    function prepare_json_request() {
+        let object = {};
+        let formData = new FormData(document.getElementById('developmentForm'));
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        let json = JSON.stringify(object);
+        return json;
+    }
+
+    $("#developmentForm").submit(function(e) {
+
+        e.preventDefault();
+        let json = prepare_json_request();
+
+        let form = $(this);
+        let url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: url,
+            data: json,
+            dataType: 'json',
+            cache: false,
+            timeout: 10000,
+            success: function(data)
+            {
+                let jsonResponse = JSON.stringify(data, null, 4);
+                $('#feedback').html(jsonResponse);
+                $('#error').html("");
+                let feedback = document.getElementById("feedback");
+                feedback.focus();
+            },
+            error: function (e) {
+                let errorResponse = JSON.parse(e.responseText);
+                let errorMessage = "ERROR: " + errorResponse.error.message + " : " + errorResponse.error.description;
+                console.log("ERROR : ", e);
+                $('#error').html(errorMessage);
+                $("#btn-submit").prop("disabled", false);
+                $('#feedback').html("");
+            }
+        });
+    });
+</script>
+</body>
+</html>
+

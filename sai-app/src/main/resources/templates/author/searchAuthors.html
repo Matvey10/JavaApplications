@@ -1,0 +1,92 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search authors</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{author/author_menu :: author_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-10 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">All authors</h3>
+        </div>
+        <div class="panel-body">
+            <form th:action="@{/author/search}" class="form-horizontal" id="filterForm" method="get">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group form-group-lg">
+                            <label for="name" class="col-sm-12 control-label">Enter name</label>
+                            <div class="col-sm-20">
+                                <input type="text" class="form-control" id="name" th:name="name" th:value="${findAuthorSearchFilter.name}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-group-lg">
+                            <label for="surname" class="col-sm-12 control-label">Enter surname</label>
+                            <div class="col-sm-20">
+                                <input type="text" class="form-control" id="surname" th:name="surname" th:value="${findAuthorSearchFilter.surname}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-group-lg">
+                            <label for="country" class="col-sm-12 control-label">Enter country</label>
+                            <div class="col-sm-20">
+                                <input type="text" class="form-control" id="country" th:name="country" th:value="${findAuthorSearchFilter.country}" th:list="countries">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" id="btn-submit"
+                                class="btn btn-primary btn-lg">Find</button>
+                    </div>
+                </div>
+                <datalist th:id="countries">
+                    <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
+                </datalist>
+            </form>
+            <div>
+                <h3>Authors</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Patronymic</th>
+                        <th>Country</th>
+                        <th>Full info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="author : ${authors}">
+                        <td th:text="${author.name}" />
+                        <td th:text="${author.surname}" />
+                        <td th:text="${author.patronymic}" />
+                        <td th:text="${author.country}" />
+                        <td>
+                            <form th:action="@{/author/find}" method="GET">
+                                <div>
+                                    <input type="hidden" name="id" th:value="${author.id}"/>
+                                    <div>
+                                        <button type="submit">Full info</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

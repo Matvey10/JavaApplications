@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <style>
+        #error {
+            color: red;
+        }
+        #container
+        {
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 text-center">
+                    <h2 class="display-3">Please sign in</h2>
+                    <div class="info-form">
+                        <form th:action="@{/login}" method="post" class="justify-content-center">
+                            <div class="form-group">
+                                <label class="control-label">Log in as:</label>
+                                <select class="form-control" id="username" name="username">
+                                    <option th:value="user" th:text="user" th:selected="true"></option>
+                                    <option th:value="testman" th:text="testman"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Secret key:</label>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Secret key">
+                            </div>
+                            <button type="submit" class="btn btn-success ">Sign in</button>
+                            <div th:if="${param.error}" th:id="error">
+                                Invalid secret key
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+</body>
+</html>
+

@@ -1,0 +1,103 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <title>Development</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{development/development_menu :: development_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">Development</h3>
+        </div>
+        <div class="panel-body">
+            <div class="starter-template">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">Name:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findDevelopmentResult.developmentName}"></li>
+                    <li class="list-group-item list-group-item-success">Type:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findDevelopmentResult.developmentType}"></li>
+                    <li class="list-group-item list-group-item-success">Year:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findDevelopmentResult.developmentYear}"></li>
+                </ul>
+                <p></p>
+                <div>
+                    <h3>Authors</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Patronymic</th>
+                            <th>Country</th>
+                            <th>Sex</th>
+                            <th>Full info</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="author : ${findDevelopmentResult.authors}">
+                            <td th:text="${author.name}" />
+                            <td th:text="${author.surname}" />
+                            <td th:text="${author.patronymic}" />
+                            <td th:text="${author.country}" />
+                            <td th:text="${author.sex}" />
+                            <td>
+                                <form th:action="@{/author/find}" method="GET">
+                                    <div>
+                                        <input type="hidden" name="id" th:value="${author.id}"/>
+                                        <div>
+                                            <button type="submit">Full info</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p></p>
+                <div>
+                    <h3>SAI properties</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Related SAI Property</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="property : ${findDevelopmentResult.saiProperties}">
+                            <td th:text="${property.propertyName}" />
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p></p>
+                <div>
+                    <h3>Related technologies</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Technology</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="technology : ${findDevelopmentResult.technologies}">
+                            <td th:text="${technology.technologyName}" />
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

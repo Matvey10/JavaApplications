@@ -1,0 +1,50 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <title>AI area</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{article/article_menu :: article_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">AI area</h3>
+        </div>
+        <div class="panel-body">
+            <div class="starter-template">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">Area name:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${aiArea.areaName}"></li>
+                    <li class="list-group-item list-group-item-success">Area branch:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${aiArea.areaBranch}"></li>
+                </ul>
+                <p></p>
+                <div>
+                    <h4>Methods</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Method</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="method : ${aiArea.methods}">
+                            <td th:text="${method.getMethodName}" />
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

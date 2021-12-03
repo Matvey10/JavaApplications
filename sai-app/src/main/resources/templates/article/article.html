@@ -1,0 +1,149 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <title>Article</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{article/article_menu :: article_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title">Article</h3>
+        </div>
+        <div class="panel-body">
+            <div class="starter-template">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">Title:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findArticleResult.articleTitle}"></li>
+                    <li class="list-group-item list-group-item-success">Magazine:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findArticleResult.articleMagazine}"></li>
+                    <li class="list-group-item list-group-item-success">Issue:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findArticleResult.issuerNumber}"></li>
+                    <li class="list-group-item list-group-item-success">Year:</li>
+                    <li class="list-group-item list-group-item-primary" th:text="${findArticleResult.articleYear}"></li>
+                </ul>
+                <p></p>
+                <div>
+                    <h3>Authors</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Patronymic</th>
+                            <th>Country</th>
+                            <th>Sex</th>
+                            <th>Full info</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="author : ${findArticleResult.authors}">
+                            <td th:text="${author.name}" />
+                            <td th:text="${author.surname}" />
+                            <td th:text="${author.patronymic}" />
+                            <td th:text="${author.country}" />
+                            <td th:text="${author.sex}" />
+                            <td>
+                                <form th:action="@{/author/find}" method="GET">
+                                    <div>
+                                        <input type="hidden" name="id" th:value="${author.id}"/>
+                                        <div>
+                                            <button type="submit">Full info</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p></p>
+                <div>
+                    <h3>Keywords</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Keyword</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="keyword : ${findArticleResult.keywords}">
+                            <td th:text="${keyword.value}" />
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p></p>
+                <div>
+                <h3>AI areas</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>AI area</th>
+                        <th>Area branch</th>
+                        <th>Full info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="aiArea : ${findArticleResult.aiAreas}">
+                        <td th:text="${aiArea.areaName}" />
+                        <td th:text="${aiArea.areaBranch}" />
+                        <td>
+                            <form th:action="@{/article/aiArea/find}" method="GET">
+                                <div>
+                                    <input type="hidden" name="id" th:value="${aiArea.id}"/>
+                                    <div>
+                                        <button type="submit">Full info</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+                <p></p>
+                <div>
+                    <h3>Related developments</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Year</th>
+                            <th>Full info</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="development : ${findArticleResult.developments}">
+                            <td th:text="${development.developmentName}" />
+                            <td th:text="${development.developmentType}" />
+                            <td th:text="${development.developmentYear}" />
+                            <td>
+                                <form th:action="@{/development/find}" method="GET">
+                                    <div>
+                                        <input type="hidden" name="id" th:value="${development.id}"/>
+                                        <div>
+                                            <button type="submit">Full info</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <title>Add article</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{article/article_menu :: article_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title" text="Add article"></h3>
+        </div>
+        <div class="panel-body">
+            <div class="starter-template">
+                <form th:action="@{/rest/article/add}" class="form-horizontal" id="articleForm" name="articleForm">
+                    <div class="form-group purple-border">
+                        <label for="feedback" class="col-sm-2 control-label">Result</label>
+                        <div class="col-sm-10">
+                            <textarea readonly class="form-control" id="feedback" rows="6"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="articleTitle" class="col-sm-2 control-label">Article title<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="articleTitle" name="articleTitle" placeholder="Title" rows="8">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="articleMagazine" class="col-sm-2 control-label">Article magazine<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="articleMagazine" name="articleMagazine" placeholder="Magazine">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="issuerNumber" class="col-sm-2 control-label">Issue number<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="issuerNumber" name="issuerNumber" placeholder="1" rows="8">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="articleYear" class="col-sm-2 control-label">Article year<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="articleYear" name="articleYear" placeholder="2021" rows="8">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="keyWords" class="col-sm-2 control-label">Keywords<span style="color: #FF0000;">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="keyWords" name="keyWords" placeholder="keyWord1,keyWord2..." rows="8">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="authorsIds" class="col-sm-2 control-label">Authors</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="authorsIds" name="authorsIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="aiAreasIds" class="col-sm-2 control-label">AI areas</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="aiAreasIds" name="aiAreasIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="developmentsIds" class="col-sm-2 control-label">Related developments</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="developmentsIds" name="developmentsIds" placeholder="id1,id2...">
+                        </div>
+                    </div>
+                    <style>
+                        #error {color: red;}
+                    </style>
+                    <div id="error"></div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" id="btn-submit"
+                                    class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                    <style>
+                        #error {color: red;}
+                    </style>
+                </form>
+            </div>
+        </div>
+        <p><span style="color: #FF0000;">*</span> - required</p>
+    </div>
+</div>
+<script type="text/javascript"
+        th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script>
+    function prepare_json_request() {
+        let object = {};
+        let formData = new FormData(document.getElementById('articleForm'));
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        let json = JSON.stringify(object);
+        return json;
+    }
+
+    $("#articleForm").submit(function(e) {
+
+        e.preventDefault();
+        let json = prepare_json_request();
+
+        let form = $(this);
+        let url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: url,
+            data: json,
+            dataType: 'json',
+            cache: false,
+            timeout: 10000,
+            success: function(data)
+            {
+                let jsonResponse = JSON.stringify(data, null, 4);
+                $('#feedback').html(jsonResponse);
+                $('#error').html("");
+                let feedback = document.getElementById("feedback");
+                feedback.focus();
+            },
+            error: function (e) {
+                let errorResponse = JSON.parse(e.responseText);
+                let errorMessage = "ERROR: " + errorResponse.errorMessage;
+                console.log("ERROR : ", e);
+                $('#error').html(errorMessage);
+                $("#btn-submit").prop("disabled", false);
+                $('#feedback').html("");
+            }
+        });
+    });
+</script>
+</body>
+</html>
+

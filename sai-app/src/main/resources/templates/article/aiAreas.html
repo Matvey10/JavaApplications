@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <title>AI areas</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:insert="~{menu :: menu_}"></div>
+<div class="row">
+    <div class ="col-2">
+        <div th:insert="~{article/article_menu :: article_menu_}"></div>
+    </div>
+    <div class="panel panel-primary col-md-8 col-md-offset-0.5">
+        <div class="panel-heading">
+            <h3 class="panel-title" text="AI areas"></h3>
+        </div>
+        <div class="panel-body">
+            <div>
+                <h3>AI areas</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>AI area</th>
+                        <th>Area branch</th>
+                        <th>Full info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="aiArea : ${aiAreas}">
+                        <td th:text="${aiArea.areaName}" />
+                        <td th:text="${aiArea.areaBranch}" />
+                        <td>
+                            <form th:action="@{/article/aiArea/find}" method="GET">
+                                <div>
+                                    <input type="hidden" name="id" th:value="${aiArea.id}"/>
+                                    <div>
+                                        <button type="submit">Full info</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
