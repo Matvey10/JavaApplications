@@ -49,9 +49,6 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "user")
-    Account account;
-
     public String getFirstName() {
         return firstName;
     }

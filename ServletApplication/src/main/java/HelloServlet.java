@@ -13,19 +13,11 @@ import java.io.PrintWriter;
 public class HelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-        if (cookies!=null)
+        if (cookies[0].getValue()!="")
         {
-            if (cookies[0].getValue()!="")
-            {
-                request.setAttribute("userCookies", cookies);
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/cookies.jsp");
-                requestDispatcher.forward(request, response);
-            }
-            else
-            {
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/signIn.html");
-                requestDispatcher.forward(request, response);
-            }
+            request.setAttribute("userCookies", cookies);
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/cookies.jsp");
+            requestDispatcher.forward(request, response);
         }
         else
         {

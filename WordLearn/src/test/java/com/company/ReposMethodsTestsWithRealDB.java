@@ -1,6 +1,5 @@
 package com.company;
 
-import com.company.Entities.SpecialSqlResults.UserAndScores;
 import com.company.Entities.SpecialSqlResults.UserAndWordCount;
 import com.company.Entities.SpecialSqlResults.WordsAndCount;
 import com.company.Entities.User;
@@ -9,7 +8,6 @@ import com.company.services.UserService;
 import com.company.services.UserServiceImpl;
 import com.company.services.WordService;
 import com.company.services.WordServiceImpl;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
+        //SpringBootTest.WebEnvironment.MOCK,
         classes = Application.class)
 @AutoConfigureMockMvc
 @TestPropertySource(
@@ -51,6 +50,8 @@ public class ReposMethodsTestsWithRealDB {
             return new WordServiceImpl();
         }
     }
+    @Autowired
+    private MockMvc mvc;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
@@ -81,20 +82,6 @@ public class ReposMethodsTestsWithRealDB {
     public void popularWordsTest(){
         List<WordsAndCount> popularWords = wordService.popularWords();
         popularWords.stream().forEach(System.out::println);
-        Assert.assertTrue(!popularWords.isEmpty());
-    }
-
-    @Test
-    public void avgScoreTest(){
-        double score = userRepository.getUserAvgScore(50);
-        Assert.assertEquals(0.875, score, 1e-9);
-    }
-
-    @Test
-    public void avgScoresTest(){
-        List<UserAndScores> us = userRepository.getAvgScores();
-        us.stream().forEach(System.out::println);
-        Assert.assertEquals(false, us.isEmpty());
     }
 
 }

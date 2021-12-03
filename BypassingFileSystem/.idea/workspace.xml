@@ -27,7 +27,6 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../forTests" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -68,12 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1581605267251</updated>
-      <workItem from="1581605282831" duration="16113000" />
-      <workItem from="1581680818774" duration="174000" />
-      <workItem from="1583159445570" duration="1743000" />
-      <workItem from="1583170413313" duration="1049000" />
-      <workItem from="1583177159721" duration="3720000" />
-      <workItem from="1583354277113" duration="36000" />
+      <workItem from="1581605282831" duration="15248000" />
     </task>
     <servers />
   </component>
@@ -81,38 +75,26 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1583354310447">
+    <state width="1323" height="211" key="GridCell.Tab.0.bottom" timestamp="1581624385051">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583354310447" />
-    <state width="1323" height="204" key="GridCell.Tab.0.bottom" timestamp="1583181604356">
+    <state width="1323" height="211" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1581624385051" />
+    <state width="1323" height="211" key="GridCell.Tab.0.center" timestamp="1581624385050">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="204" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583181604356" />
-    <state width="1323" height="204" key="GridCell.Tab.0.center" timestamp="1583181604355">
+    <state width="1323" height="211" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1581624385050" />
+    <state width="1323" height="211" key="GridCell.Tab.0.left" timestamp="1581624385050">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="204" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583181604355" />
-    <state width="1323" height="204" key="GridCell.Tab.0.left" timestamp="1583181604355">
+    <state width="1323" height="211" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1581624385050" />
+    <state width="1323" height="211" key="GridCell.Tab.0.right" timestamp="1581624385051">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="204" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583181604355" />
-    <state width="1323" height="204" key="GridCell.Tab.0.right" timestamp="1583181604356">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="204" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583181604356" />
-    <state x="379" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1583354301995">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="379" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1583354301995" />
+    <state width="1323" height="211" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1581624385051" />
     <state x="413" y="129" key="extract.method.dialog" timestamp="1581613866122">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="129" key="extract.method.dialog/0.0.1366.728@0.0.1366.728" timestamp="1581613866122" />
-    <state x="131" y="0" key="new project wizard" timestamp="1583177310577">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="131" y="0" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1583177310577" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1581614810540">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

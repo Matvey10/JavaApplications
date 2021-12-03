@@ -1,10 +1,6 @@
 package com.company.controllers;
 
-import com.company.Entities.Account;
 import com.company.Entities.Role;
-import com.company.Entities.SpecialSqlResults.UserAndScores;
-import com.company.Entities.SpecialSqlResults.UserAndWordCount;
-import com.company.Entities.SpecialSqlResults.WordsAndCount;
 import com.company.Entities.User;
 import com.company.Entities.Word;
 import com.company.services.UserService;
@@ -21,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,13 +32,8 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @GetMapping("/")
-    public String redirectToStartPage(Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = userService.getAccount(user);
-        model.addAttribute("account", account);
-        int avgScore = userService.getAvgUserResult(user.getId()).intValue();
-        model.addAttribute("avgScore", avgScore);
-        return "home";
+    public String redirectToStartPage(){
+        return "javaArticles";
     }
 
     @GetMapping("/addWord")
@@ -97,23 +89,5 @@ public class UserController {
         model.addAttribute("allWords", allUserWords);
         return "allUserWords";
     }
-
-    @GetMapping("/statistic")
-    public String getStatistic(Model model){
-        List<UserAndWordCount> rating = userService.getUserRating();
-        model.addAttribute("rating", rating);
-        List<WordsAndCount> popularWords = wordService.popularWords();
-        model.addAttribute("popularWords", popularWords);
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        double score = userService.getAvgUserResult(user.getId());
-        model.addAttribute("score", score);
-        List<UserAndScores> userAndScores = userService.getUsersScores();
-        for (UserAndScores us : userAndScores){
-            us.setScore((int)(us.getScore()*100));
-        }
-        model.addAttribute("usersScores", userAndScores);
-        return "statistic";
-    }
-
 
 }

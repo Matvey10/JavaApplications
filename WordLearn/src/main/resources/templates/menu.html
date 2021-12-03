@@ -2,19 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="menu_">
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/">WordLearn</a>
-        <div class="nav navbar-nav">
-            <ul class="nav navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="/signUp">Main </a></li>
-                <li class="nav-item"><a class="nav-link" href="/addWord"> Words </a></li>
-                <li class="nav-item"><a class="nav-link" href="/addTopic"> Courses </a> </li>
-                <li class="nav-item"><a class="nav-link" href="/articles"> Java articles </a></li>
-                <li class="nav-item"><a class="nav-link" href="/signUp"> Sign up </a></li>
-                <li class="nav-item"><a class="nav-link" href="/"> Log out </a> </li>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li><a href="/signUp">Main </a></li>
+                <li><a href="/addWord"> Words </a></li>
+                <li><a href="/addTerm"> Terms </a> </li>
+                <li><a href="/addTopic"> Courses </a> </li>
+                <li><a href="/articles"> Java articles </a></li>
+                <li><a href="/signUp"> Sign up </a></li>
+                <li><a href="/"> Log out </a> </li>
             </ul>
         </div>
     </nav>
+    <br><br>
 </div>
 </body>
 </html>

@@ -13,17 +13,12 @@ public class FileSystemWalker {
     private static final int indent = 5;
     public FileSystemWalker (String rootDirectory){
         this.rootDirectory = Paths.get(rootDirectory);
-        directoryNameLength = rootDirectory.length();
         byPassFileSystem(this.rootDirectory);
+        directoryNameLength = rootDirectory.length();
     }
     public FileSystemWalker(String rootDirectory, String regex){
         this.rootDirectory = Paths.get(rootDirectory);
-        try{
-            patternFilter = new PatternFilter(regex);
-        }
-        catch (PatternSyntaxException e){
-            e.printStackTrace();
-        }
+        patternFilter = new PatternFilter(regex);
         directoryNameLength = rootDirectory.length();
         byPassFileSystem(this.rootDirectory);
     }
@@ -36,10 +31,8 @@ public class FileSystemWalker {
         if (Files.isDirectory(path)){
             try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(path)){
                 for (Path child : dirStream){
-                    if (patternFilter!=null){
-                        if (patternFilter.match(path.relativize(child).toString()))
-                            continue;
-                    }
+                    if (patternFilter!=null && patternFilter.match(path.relativize(child).toString()))
+                        continue;
                     else {
                         formatOutput(path, child, level);
                         byPassFileSystem(child, level);
@@ -80,8 +73,13 @@ public class FileSystemWalker {
     }
     public static class PatternFilter{
         private Pattern pattern;
-        public PatternFilter(String regex) throws PatternSyntaxException {
-            pattern = Pattern.compile(regex);
+        public PatternFilter(String regex){
+            try {
+               pattern = Pattern.compile(regex);
+            }
+            catch (PatternSyntaxException e){
+                e.printStackTrace();
+            }
         }
         public boolean match(String text){
             Matcher matcher = pattern.matcher(text);

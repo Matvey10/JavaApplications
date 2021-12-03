@@ -19,6 +19,6 @@ public class Server {
         buffer.flip();
         serverChannel.write(buffer);//пишем в канал данные из буфера
         buffer.compact();//или clear?
-        //serverChannel.close();
+        serverChannel.close();
     }
 }

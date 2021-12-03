@@ -1,11 +1,10 @@
 package com.company.services;
 
-import com.company.Entities.*;
-import com.company.Entities.SpecialSqlResults.UserAndScores;
+import com.company.Entities.Role;
 import com.company.Entities.SpecialSqlResults.UserAndWordCount;
-import com.company.Repositories.AccountRepository;
+import com.company.Entities.User;
+import com.company.Entities.Word;
 import com.company.Repositories.UserRepository;
-import com.company.Repositories.WordTestResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,10 +23,6 @@ public class UserServiceImpl implements UserService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    WordTestResultRepository wordTestResultRepository;
-    @Autowired
-    AccountRepository accountRepository;
     public boolean addUser(User user){
         User userFromDB = userRepository.findUserByLogin(user.getLogin());
         if (userFromDB != null) {
@@ -73,35 +68,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserAndWordCount> getUserRating() {
         return userRepository.getUserRating();
-    }
-
-    @Override
-    public Double getAvgUserResult(int id) {
-        double avgScore = userRepository.getUserAvgScore(id);
-        return avgScore;
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Account getAccount(User user) {
-        WordTestResult result = wordTestResultRepository.findFirstByUser(user);
-        if (result == null){
-            Account account = new Account(user, Account.INITIAL_POINTS);
-            return account;
-        }
-        Account account = accountRepository.findFirstByUser(user);
-        return account;
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public boolean addAccount(Account account) {
-        accountRepository.save(account);
-        return true;
-    }
-
-    @Override
-    public List<UserAndScores> getUsersScores() {
-        return userRepository.getAvgScores();
     }
 }

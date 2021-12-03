@@ -95,6 +95,8 @@ public class GreetingController {
             user.setFilename(resultFileName);
             System.out.println(uploadPath + "\\" + resultFileName);
             file.transferTo(new File(uploadPath + "\\" + resultFileName));
+            //System.out.println(resultFileName);
+           // file.transferTo(new File(resultFileName));
         }
         if (file==null)
             System.out.print("aaaaaaaaaaaaaaaaaaaaa");
